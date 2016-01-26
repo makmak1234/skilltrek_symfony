@@ -1,0 +1,14 @@
+services:
+#    blog_blog.example:
+#        class: Blog\BlogBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+    post_repository:
+        class:           Blog\BlogBundle\Repository\PostRepository
+        #factory_service: doctrine.orm.default_entity_manager
+        #factory_method:  getRepository
+        factory: ["@doctrine.orm.default_entity_manager", getRepository]
+        arguments:
+            - BlogBlogBundle:Post
+    searcher:
+        class: Blog\BlogBundle\Lib\Searcher\Searcher
+        arguments: ['@post_repository']
